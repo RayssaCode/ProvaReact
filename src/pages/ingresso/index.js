@@ -2,8 +2,6 @@ import axios from "axios";
 import { useState } from "react"
 
 
-
-
 export default function Index(){
     const [qtdInteiras, setQtdInteiras] = useState(0);
     const [qtdMeias, setQtdMeias] = useState(0);
@@ -12,36 +10,36 @@ export default function Index(){
     const [total, setTotal] = useState(0);
 
     async function calcular() {
-        const resp = await axios.post('http://localhost:5000/dia2/ingressocinema', {
-            qtdInteiras: qtdInteiras,
-            qtdMeias: qtdMeias,
-            DiaSemana: DiaSemana,
-            nacionalidade: nacionalidade
+        const resp = await axios.post('http://localhost:5000/dia2/ingressosCinema', {
+            inteiras: qtdInteiras, 
+            meias: qtdMeias,
+            dia: DiaSemana,
+            nacionalidade:nacionalidade
          })
 
-         setTotal(resp.data.total)
+         setTotal(resp.data.Total_Compra)
     }
     return (
         <main>
             <h1> Ingresso </h1>
             
             <div>
-                qtd. Inteiras: <input type='text' value={qtdInteiras} onChange={e => setQtdInteiras(Number(e.target.value))} />
+                inteiras: <input type='text' value={qtdInteiras} onChange={e => setQtdInteiras(Number(e.target.value))} />
             </div>
             <div>
-                qtd. Meias: <input type='text' value={qtdMeias} onChange={e => setQtdMeias(Number(e.target.value))} />
+                meias: <input type='text' value={qtdMeias} onChange={e => setQtdMeias(Number(e.target.value))} />
             </div>
             <div>
-                Dia da Semana: <input type='text' value={DiaSemana} onChange={e =>setDiaSemana(e.target.value)} />
+                dia: <input type='text' value={DiaSemana} onChange={e =>setDiaSemana(e.target.value)} />
             </div>
             <div>
-                Nascionalidade: <input type='text' value={nacionalidade} onChange={e => setNacionalidade(e.target.value)} />
+                nascionalidade: <input type='text' value={nacionalidade} onChange={e => setNacionalidade(e.target.value)} />
             </div>
             <div>
-                <button> Calcular </button>
+                <button onClick={calcular}> Calcular </button>
             </div>
             <div>
-                O total é R$
+                O total é R$ {total}
             </div>
         </main>
     )
